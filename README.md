@@ -21,7 +21,7 @@ interface SlackClient {
     suspend fun send(model: SlackMessageModel): String
 
     /**
-     * support sending multiple messages
+     * support sending multiple messages, *Use after checking for overload*
      */
     suspend fun sendBulk(models: List<SlackMessageModel>)
 }
