@@ -1,6 +1,8 @@
 package com.goofy.slack.client
 
 import com.goofy.slack.client.model.SlackMessageModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.awaitBody
@@ -15,5 +17,13 @@ class ReactiveSlackClient(
             .bodyValue(model)
             .retrieve()
             .awaitBody()
+    }
+
+    override suspend fun sendBulk(models: List<SlackMessageModel>) {
+        models.forEach { model ->
+            GlobalScope.launch {
+                send(model)
+            }
+        }
     }
 }

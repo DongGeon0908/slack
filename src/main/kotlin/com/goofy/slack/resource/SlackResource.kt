@@ -11,4 +11,9 @@ class SlackResource(
 ) {
     @GetMapping("/api/v1/slack")
     suspend fun sendMessage() = slackClient.send(SlackMessageModel("send slack message"))
+
+    @GetMapping("/api/v1/slack-bulk")
+    suspend fun sendBulkMessages() = slackClient.sendBulk(
+        (0..50).map { count -> SlackMessageModel("send slack message - $count") }
+    )
 }
