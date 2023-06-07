@@ -1,2 +1,6 @@
 slack:
-  webhook-url: # that's webhook url
+  webhooks:
+    test1: # key is your choice
+      url: # that's webhook url - exclude https://hooks.slack.com/services
+    test2: # key is your choice
+      url: # that's webhook url - exclude https://hooks.slack.com/services

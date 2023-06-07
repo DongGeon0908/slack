@@ -7,14 +7,16 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class SlackConfig(
-    private val slackProperties: SlackProperties
-) {
+class SlackConfig {
     private val logger = mu.KotlinLogging.logger {}
+
+    companion object {
+        private const val SLACK_WEBHOOKS_DOMAIN = "https://hooks.slack.com/services"
+    }
 
     @Bean
     fun slackClient(): SlackClient {
-        val webClient = WebClientExtension.generate(baseUrl = slackProperties.webhookUrl)
+        val webClient = WebClientExtension.generate(baseUrl = SLACK_WEBHOOKS_DOMAIN)
         logger.info { "initialized slack client" }
         return ReactiveSlackClient(webClient)
     }
